@@ -18,7 +18,6 @@ const CreatePrompt = () => {
 
   const createPrompt = async (e) => {
     e.preventDefault();
-    console.log("Hey");
 
     try {
       const res = await fetch("/api/prompt/new", {
