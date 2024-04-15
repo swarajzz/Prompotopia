@@ -17,12 +17,18 @@ const MyProfile = () => {
     router.push(`/update-prompt?id=${post._id}`);
   };
 
-  const handleDelete = (post) => {
-    let answer = window.confirm("Are you sure you want to delete this post?");
+  const handleDelete = async (post) => {
+    const answer = confirm("Are you sure you want to delete this post?");
+
     if (answer) {
-      console.log("Deleting post");
-    } else {
-      console.log("Post not deleted");
+      try {
+        await fetch(`/api/prompt/${post._id.toString()}`, { method: "DELETE" });
+
+        const filteredPosts = posts.filter((p) => p._id !== post._id);
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -39,7 +45,7 @@ const MyProfile = () => {
   return (
     <Profile
       name="My"
-      desc="Welcome to your personalized profile page"
+      desc="Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination"
       data={posts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}

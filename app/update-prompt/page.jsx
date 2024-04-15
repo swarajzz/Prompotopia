@@ -19,7 +19,6 @@ const CreatePrompt = () => {
     const getPromptDetails = async () => {
       const response = await fetch(`/api/prompt/${promptId}`);
       const data = await response.json();
-      console.log(data);
 
       setPost({
         prompt: data.prompt,
